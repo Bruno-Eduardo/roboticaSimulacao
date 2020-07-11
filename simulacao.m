@@ -20,13 +20,22 @@ D = 0;
 
 planta_teorica = 1/(m*s^2+c*s+k);
 
-y = step(planta_teorica, t);
-plot(t,y);
-yd = y;
-for i = 1:length(y)-1
-    
+y_teorico = step(planta_teorica, t);
+plot(t, y_teorico);
+yd_teorico = y_teorico; yd_teorico(1)=0;
+for i = 1:length(y_teorico)-1
+    yd_teorico(i+1) = (y_teorico(i+1)-y_teorico(i))/t(2);
 end
 
+plot(t,y_teorico,t,yd_teorico)
+
+%Trocar aqui
+yd_real = yd_teorico/2;
+Kp=1;
+
+x__d = Kp*(yd_teorico-yd_real);
+close all;
+plot(x__d)
 
 %sim('simulacaoNDI', T);
 
